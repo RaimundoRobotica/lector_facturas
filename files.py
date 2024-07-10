@@ -24,3 +24,12 @@ def copiar_y_renombrar_pdf(ruta_origen, nombre_archivo, ruta_destino, nuevo_nomb
         print(f"Archivo copiado y renombrado a: {archivo_destino}")
     else:
         print(f"El archivo de origen no existe: {archivo_origen}")
+
+def pregunta_direccion():
+    print('Escribe la dirección donde se encuentran tur facturas.')
+    print('Enter si el ejecutable ya está en la carpeta.')
+    direccion = input('> ')
+    if direccion == '':
+        return './'
+    else:
+        return direccion

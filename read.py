@@ -3,6 +3,7 @@ import PyPDF2
 
 from vvalley import extract_vvalley_data, crear_nombre_factura_vvalley
 from ingram import extract_ingram_data, crear_nombre_factura_ingram
+from infratech import extract_infratech_data, crear_nombre_factura_infratech
 #from infratech import extract_infratech_data, crear_nombre_factura_infratech
 from files import copiar_y_renombrar_pdf
 
@@ -57,6 +58,13 @@ def buscar_palabras_en_pdf(ruta_carpeta, proveedores):
                             # Procesado de facturas de Repsol
                             # Copia del archivo sin cambiar el nombre
                             copiar_y_renombrar_pdf(ruta_carpeta, nombre_archivo, ruta_carpeta + '/Pend_Archivar', nombre_archivo)
+                        if palabra == 'Infratech':
+                            # Procesado de facturas de Infratech
+                            data = extract_infratech_data(texto_completo)
+                            # Copia y cambio de nombre del archivo
+                            nombre_nuevo_archivo = crear_nombre_factura_infratech(data)
+                            copiar_y_renombrar_pdf(ruta_carpeta, nombre_archivo, ruta_carpeta + '/Pend_Archivar', nombre_nuevo_archivo)
+
     # Procesado de archivos de proveedor desconocido
     print('Copiando archivos no reconocidos')
     # Recorrido de todos los archivos que había originalmente

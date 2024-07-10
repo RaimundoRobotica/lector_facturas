@@ -2,7 +2,7 @@ import re
 
 clientes = ['afanias', 'mopsa', 'aora', 'macrison', 'isq', 'sanfiz', 'legisfund', 'audiconsulting', 'cualicontrol', '40db','moreno', 'saniscle', 'rödl']
 
-def extract_date(texto):
+def extract_date_ingram(texto):
     #Extrae las fechas de la factura en formato DD/MM/AA
     # Patrón de fecha en expresión regular
     patron_fecha = r'\b(0[1-9]|[12][0-9]|3[01])\-(0[1-9]|1[0-2])\-\d{4}\b'
@@ -10,7 +10,7 @@ def extract_date(texto):
     fechas_completas = [match.group() for match in re.finditer(patron_fecha, texto)]
     return fechas_completas
 
-def extract_n_factura(texto):
+def extract_n_factura_ingram(texto):
     # Extrae el número de factura: 9 dígitos seguidos de la palabra ZITRO
     # Patrón de la expresión regular
     patron = r'\b(\d{9})ZITRO\b'
@@ -18,7 +18,7 @@ def extract_n_factura(texto):
     coincidencias = re.findall(patron, texto)
     return coincidencias
 
-def extract_cliente(texto):
+def extract_cliente_ingram(texto):
     # Busca el nombre del cliente en la factura
     for i in clientes:
         if i in texto.lower():
@@ -31,9 +31,9 @@ def extract_ingram_data(texto):
     #print(texto)
     # Extracción de datos
     proveedor = 'INGRAM-MICRO'
-    fecha = extract_date(texto)[0]
-    n_factura = extract_n_factura(texto)[0]
-    cliente = extract_cliente(texto)
+    fecha = extract_date_ingram(texto)[0]
+    n_factura = extract_n_factura_ingram(texto)[0]
+    cliente = extract_cliente_ingram(texto)
     concepto = texto.split()[1]
     # Lista con los datos necesarios para generar el nombre
     data =[proveedor, fecha, n_factura, cliente, concepto.lower()]
